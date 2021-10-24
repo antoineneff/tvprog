@@ -1,0 +1,23 @@
+{
+  "name": "tvprog",
+  "version": "1.0.0",
+  "description": "Get french tv programs of the day",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "Antoine Neff",
+  "license": "ISC",
+  "dependencies": {
+    "camaro": "^6.1.0",
+    "fastify": "^3.22.1",
+    "got": "^11.8.2",
+    "luxon": "^2.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14"
+  }
+}
