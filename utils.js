@@ -54,6 +54,7 @@ async function filterPrograms({ channels, programs }) {
 
 async function formatPrograms({ channels, programs }) {
   const formatted = programs.reduce((prev, program) => {
+    const programDate = DateTime.fromMillis(program.start).toISODate()
     const channel = channels.find(channel => channel.id === program.channel)
     const { title, start, end } = program
     const formattedProgram = {
@@ -61,7 +62,11 @@ async function formatPrograms({ channels, programs }) {
       start: DateTime.fromMillis(start, { zone: 'Europe/Paris' }).toLocaleString({ hour: '2-digit', minute: '2-digit' }),
       end: DateTime.fromMillis(end, { zone: 'Europe/Paris' }).toLocaleString({ hour: '2-digit', minute: '2-digit' })
     }
-    prev[channel.name] = formattedProgram
+    if (!prev[programDate]) {
+      prev[programDate] = { [channel.name]: formattedProgram }
+    } else {
+      prev[programDate] = { ...prev[programDate], [channel.name]: formattedProgram }
+    }
     return prev
   }, {})
 

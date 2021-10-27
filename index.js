@@ -1,4 +1,5 @@
 import fastify from 'fastify'
+import { DateTime } from 'luxon'
 import { fetchAndParseXML, print } from './utils.js'
 
 const server = fastify()
@@ -6,7 +7,11 @@ const server = fastify()
 let programs = null
 
 server.get('/', async () => {
-  return print(programs)
+  const TODAY = DateTime.local().setZone('Europe/Paris').toISODate()
+  if (!programs[TODAY]) {
+    programs = await fetchAndParseXML()
+  }
+  return print(programs[TODAY])
 })
 
 server.get('/fetch', async () => {
