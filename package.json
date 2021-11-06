@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "camaro": "^6.1.0",
-    "fastify": "^3.22.1",
+    "fastify": "^3.23.0",
     "got": "^11.8.2",
     "luxon": "^2.0.2"
   },
