@@ -13,9 +13,9 @@
   "license": "ISC",
   "dependencies": {
     "camaro": "^6.1.0",
-    "fastify": "^3.25.2",
+    "fastify": "^3.25.3",
     "got": "^12.0.0",
-    "luxon": "^2.2.0"
+    "luxon": "^2.3.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
