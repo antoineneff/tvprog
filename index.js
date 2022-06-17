@@ -44,7 +44,7 @@ server.get('/fetch', async () => {
 
 const start = async () => {
   try {
-    await server.listen(3000, '0.0.0.0')
+    await server.listen({ port: 3000, host: '0.0.0.0' })
     console.log("API started ✓")
     updatePrograms()
   } catch (error) {
