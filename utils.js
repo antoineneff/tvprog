@@ -83,9 +83,12 @@ export async function fetchAndParseXML() {
 }
 
 export function print(programs) {
-  const MAX_TITLE_LENGTH = Math.min(Math.max(...Object.values(programs).map(program => program.title.length)), 55) + 2
+  const LONGEST_TITLE_LENGTH = Math.max(...Object.values(programs).map(program => program.title.length))
+  const MIN_TITLE_LENGTH = 30
+  const MAX_TITLE_LENGTH = 55
+  const TITLE_LENGTH = Math.max(Math.min(LONGEST_TITLE_LENGTH, MAX_TITLE_LENGTH) + 2, MIN_TITLE_LENGTH)
   const TIMETABLE_LENGTH = '00:00 - 00:00'.length + 2
-  const LINE_LENGTH = MAX_CHANNEL_LENGTH + MAX_TITLE_LENGTH + TIMETABLE_LENGTH + 4
+  const LINE_LENGTH = MAX_CHANNEL_LENGTH + TITLE_LENGTH + TIMETABLE_LENGTH + 4
   const PROGRAM_TITLE = `PROGRAMME TV DU ${DateTime.local().setZone('Europe/Paris').toLocaleString()}`
   let SPACES_BEFORE_TITLE = ' '.repeat(Math.ceil((LINE_LENGTH - PROGRAM_TITLE.length - 2) / 2) - 1)
   let SPACES_AFTER_TITLE = SPACES_BEFORE_TITLE
@@ -95,19 +98,19 @@ export function print(programs) {
 
   let print = `${SPACES_BEFORE_TITLE}┌${'─'.repeat(PROGRAM_TITLE.length + 2)}┐${SPACES_AFTER_TITLE}\n`
   print += `${SPACES_BEFORE_TITLE}│ ${PROGRAM_TITLE} │${SPACES_AFTER_TITLE}\n`
-  print += `┌${'─'.repeat(MAX_CHANNEL_LENGTH)}┬${'─'.repeat(SPACES_BEFORE_TITLE.length - MAX_CHANNEL_LENGTH - 2)}┴${'─'.repeat(PROGRAM_TITLE.length + 2)}┴${'─'.repeat(MAX_TITLE_LENGTH - PROGRAM_TITLE.length - (SPACES_BEFORE_TITLE.length - MAX_CHANNEL_LENGTH) - 2)}┬${'─'.repeat(TIMETABLE_LENGTH)}┐\n`
-  print += `│ Chaine${' '.repeat(MAX_CHANNEL_LENGTH - 'chaine'.length - 1)}│ Titre${' '.repeat(MAX_TITLE_LENGTH - 'titre'.length - 1)}│ Horaires${' '.repeat(TIMETABLE_LENGTH - 'horaires'.length - 1)}│\n`
-  print += `├${'─'.repeat(MAX_CHANNEL_LENGTH)}┼${'─'.repeat(MAX_TITLE_LENGTH)}┼${'─'.repeat(TIMETABLE_LENGTH)}┤\n`
+  print += `┌${'─'.repeat(MAX_CHANNEL_LENGTH)}┬${'─'.repeat(SPACES_BEFORE_TITLE.length - MAX_CHANNEL_LENGTH - 2)}┴${'─'.repeat(PROGRAM_TITLE.length + 2)}┴${'─'.repeat(TITLE_LENGTH - PROGRAM_TITLE.length - (SPACES_BEFORE_TITLE.length - MAX_CHANNEL_LENGTH) - 2)}┬${'─'.repeat(TIMETABLE_LENGTH)}┐\n`
+  print += `│ Chaine${' '.repeat(MAX_CHANNEL_LENGTH - 'chaine'.length - 1)}│ Titre${' '.repeat(TITLE_LENGTH - 'titre'.length - 1)}│ Horaires${' '.repeat(TIMETABLE_LENGTH - 'horaires'.length - 1)}│\n`
+  print += `├${'─'.repeat(MAX_CHANNEL_LENGTH)}┼${'─'.repeat(TITLE_LENGTH)}┼${'─'.repeat(TIMETABLE_LENGTH)}┤\n`
 
   for (const channel of ORDERED_CHANNELS) {
     if (programs[channel]) {
       const { title, start, end } = programs[channel]
       const trimmedTitle = title.length > 55 ? title.substring(0, 52) + '...' : title
-      print += `│ ${channel}${' '.repeat(MAX_CHANNEL_LENGTH - channel.length - 1)}│ ${trimmedTitle}${' '.repeat(MAX_TITLE_LENGTH - trimmedTitle.length - 1)}│ ${start} - ${end} │\n`
+      print += `│ ${channel}${' '.repeat(MAX_CHANNEL_LENGTH - channel.length - 1)}│ ${trimmedTitle}${' '.repeat(TITLE_LENGTH - trimmedTitle.length - 1)}│ ${start} - ${end} │\n`
     }
   }
 
-  print += `└${'─'.repeat(MAX_CHANNEL_LENGTH)}┴${'─'.repeat(MAX_TITLE_LENGTH)}┴${'─'.repeat(TIMETABLE_LENGTH)}┘\n`
+  print += `└${'─'.repeat(MAX_CHANNEL_LENGTH)}┴${'─'.repeat(TITLE_LENGTH)}┴${'─'.repeat(TIMETABLE_LENGTH)}┘\n`
 
   return print
 }
