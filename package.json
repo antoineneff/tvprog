@@ -12,12 +12,12 @@
   "author": "Antoine Neff",
   "license": "ISC",
   "dependencies": {
-    "camaro": "^6.1.0",
-    "fastify": "^4.0.3",
+    "camaro": "^6.2.0",
+    "fastify": "^4.3.0",
     "got": "^12.1.0",
-    "luxon": "^2.4.0"
+    "luxon": "^3.0.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.19"
   }
 }
