@@ -56,8 +56,10 @@ async function getXML() {
 }
 
 async function parseXML(xml) {
-  const channels = await camaro.transform(xml, channelsTemplate);
-  const programs = await camaro.transform(xml, programsTemplate);
+  const [channels, programs] = await Promise.all([
+    camaro.transform(xml, channelsTemplate),
+    camaro.transform(xml, programsTemplate),
+  ]);
 
   return { channels, programs };
 }
