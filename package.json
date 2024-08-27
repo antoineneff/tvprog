@@ -13,13 +13,13 @@
   "author": "Antoine Neff",
   "license": "ISC",
   "dependencies": {
-    "camaro": "^6.2.0",
-    "fastify": "^4.16.3",
-    "got": "^12.6.0",
-    "luxon": "^3.3.0"
+    "camaro": "^6.2.3",
+    "fastify": "^4.28.1",
+    "got": "^14.4.2",
+    "luxon": "^3.5.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22",
-    "prettier": "^2.8.8"
+    "nodemon": "^3.1.4",
+    "prettier": "^3.3.3"
   }
 }
