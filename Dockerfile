@@ -16,6 +16,7 @@ RUN --mount=type=cache,target=/go/pkg/mod \
     go build -o /bin/api -ldflags "-s -w" main.go
 
 FROM alpine:${ALPINE_VERSION} AS image
+RUN apk --no-cache add ca-certificates tzdata
 ENV GIN_MODE=release
 COPY --from=build /bin/api /bin/api
 EXPOSE 3000
